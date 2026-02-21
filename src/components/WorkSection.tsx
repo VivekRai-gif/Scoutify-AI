@@ -13,7 +13,7 @@ export const WorkSection = () => {
         { metric: '500+', label: 'Positions Filled' },
         { metric: '95%', label: 'Candidate Satisfaction' },
       ],
-      gradient: 'from-blue-500 to-cyan-500',
+      gradient: 'from-info-10 to-info-20',
     },
     {
       company: 'FinanceHub Inc',
@@ -25,7 +25,7 @@ export const WorkSection = () => {
         { metric: '40%', label: 'More Diverse Hires' },
         { metric: '92%', label: 'Retention Rate' },
       ],
-      gradient: 'from-purple-500 to-pink-500',
+      gradient: 'from-primary-10 to-primary-30',
     },
     {
       company: 'HealthCare Plus',
@@ -37,7 +37,7 @@ export const WorkSection = () => {
         { metric: '250+', label: 'Hires Made' },
         { metric: '88%', label: 'Quality Match' },
       ],
-      gradient: 'from-green-500 to-emerald-500',
+      gradient: 'from-success-10 to-success-20',
     },
   ];
 
@@ -76,7 +76,7 @@ export const WorkSection = () => {
             viewport={{ once: true }}
             className="inline-block mb-4"
           >
-            <span className="px-4 py-2 glass border border-purple-500/30 rounded-full text-purple-400 font-semibold text-sm">
+            <span className="px-4 py-2 glass border border-primary-20/30 rounded-full text-primary-30 font-semibold text-sm">
               Case Studies
             </span>
           </motion.div>
@@ -103,9 +103,9 @@ export const WorkSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="glass hover:glass-strong rounded-2xl p-6 text-center group hover:border-blue-500/30 smooth-transition"
+              className="glass hover:glass-strong rounded-2xl p-6 text-center group hover:border-primary-10/30 smooth-transition"
             >
-              <div className="w-12 h-12 mx-auto mb-4 bg-blue-500/20 rounded-xl flex items-center justify-center text-blue-400 group-hover:scale-110 smooth-transition">
+              <div className="w-12 h-12 mx-auto mb-4 bg-primary-10/20 rounded-xl flex items-center justify-center text-primary-20 group-hover:scale-110 smooth-transition">
                 {stat.icon}
               </div>
               <div className="text-3xl font-bold text-white mb-2">{stat.value}</div>
@@ -125,7 +125,7 @@ export const WorkSection = () => {
               transition={{ duration: 0.8, delay: index * 0.2 }}
               className="group"
             >
-              <div className="glass hover:glass-strong rounded-3xl p-8 md:p-10 smooth-transition hover:border-purple-500/30 hover:shadow-2xl hover:shadow-purple-500/10">
+              <div className="glass hover:glass-strong rounded-3xl p-8 md:p-10 smooth-transition hover:border-primary-20/30 hover:shadow-2xl hover:shadow-primary-10/10">
                 <div className="flex flex-col lg:flex-row gap-8">
                   {/* Left Content */}
                   <div className="flex-1 space-y-6">
@@ -140,7 +140,7 @@ export const WorkSection = () => {
 
                     <div className="space-y-4">
                       <div>
-                        <h4 className="text-blue-400 font-semibold mb-2 text-sm uppercase tracking-wider">
+                        <h4 className="text-primary-20 font-semibold mb-2 text-sm uppercase tracking-wider">
                           Challenge
                         </h4>
                         <p className="text-gray-300 text-lg">
@@ -149,7 +149,7 @@ export const WorkSection = () => {
                       </div>
 
                       <div>
-                        <h4 className="text-purple-400 font-semibold mb-2 text-sm uppercase tracking-wider">
+                        <h4 className="text-primary-30 font-semibold mb-2 text-sm uppercase tracking-wider">
                           Solution
                         </h4>
                         <p className="text-gray-300 text-lg">
@@ -158,7 +158,7 @@ export const WorkSection = () => {
                       </div>
                     </div>
 
-                    <button className="group/btn flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold smooth-transition">
+                    <button className="group/btn flex items-center gap-2 text-primary-20 hover:text-primary-30 font-semibold smooth-transition">
                       Read Full Case Study
                       <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 smooth-transition" />
                     </button>
@@ -167,7 +167,7 @@ export const WorkSection = () => {
                   {/* Right Results */}
                   <div className="lg:w-80">
                     <div className="glass-strong rounded-2xl p-6 space-y-4">
-                      <h4 className="text-green-400 font-semibold mb-4 text-sm uppercase tracking-wider">
+                      <h4 className="text-success-20 font-semibold mb-4 text-sm uppercase tracking-wider">
                         Results Achieved
                       </h4>
                       {project.results.map((result, idx) => (
@@ -194,7 +194,7 @@ export const WorkSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mt-16"
         >
-          <button className="group px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-pink-600 hover:to-purple-600 rounded-full font-semibold text-lg smooth-transition hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/50 flex items-center gap-2 mx-auto">
+          <button className="group px-8 py-4 bg-gradient-to-r from-primary-10 to-primary-30 hover:from-primary-30 hover:to-primary-10 rounded-full font-semibold text-lg smooth-transition hover:scale-105 hover:shadow-2xl hover:shadow-primary-10/50 flex items-center gap-2 mx-auto">
             View All Success Stories
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 smooth-transition" />
           </button>

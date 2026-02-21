@@ -18,7 +18,7 @@ export const ContactSection = () => {
         >
           <div className="w-20 h-20 bg-gradient-to-br from-primary-10 to-primary-20 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-primary-10/20">
             <img 
-              src="/matchly-logo.png" 
+              src="/matchlylogo.png" 
               alt="matchly" 
               className="h-12 w-auto brightness-200"
             />

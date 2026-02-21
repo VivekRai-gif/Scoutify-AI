@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Mail, FileSearch, Users, Check, ArrowRight, Sparkles, FileCheck } from 'lucide-react';
 
 export const FeaturesShowcase = () => {
@@ -18,6 +19,7 @@ export const FeaturesShowcase = () => {
         'Response analytics dashboard',
       ],
       image: '📧',
+      route: '/features/email-campaigns',
     },
     {
       icon: <FileCheck className="w-10 h-10" />,
@@ -34,6 +36,7 @@ export const FeaturesShowcase = () => {
         'Improvement suggestions',
       ],
       image: '✅',
+      route: '/features/ats-compatibility',
     },
     {
       icon: <FileSearch className="w-10 h-10" />,
@@ -50,6 +53,7 @@ export const FeaturesShowcase = () => {
         'Keyword density analysis',
       ],
       image: '📄',
+      route: '/features/resume-matching',
     },
     {
       icon: <Users className="w-10 h-10" />,
@@ -66,6 +70,7 @@ export const FeaturesShowcase = () => {
         'Export reports & analytics',
       ],
       image: '📊',
+      route: '/features/recruiter-dashboard',
     },
   ];
 
@@ -147,10 +152,13 @@ export const FeaturesShowcase = () => {
                 </div>
 
                 {/* CTA */}
-                <button className="group mt-6 px-6 py-3 glass hover:glass-strong hover:border-primary-10/40 hover:glow-border rounded-xl smooth-transition flex items-center gap-2 text-white font-semibold">
+                <Link 
+                  to={feature.route}
+                  className="group mt-6 px-6 py-3 glass hover:glass-strong hover:border-primary-10/40 hover:glow-border rounded-xl smooth-transition flex items-center gap-2 text-white font-semibold w-fit"
+                >
                   Explore Feature
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 smooth-transition" />
-                </button>
+                </Link>
               </div>
 
               {/* Visual Side */}

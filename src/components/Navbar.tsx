@@ -33,7 +33,7 @@ export const Navbar = () => {
             className="flex items-center gap-2"
           >
             <img 
-              src="/matchly-logo.png" 
+              src="/matchlylogo.png" 
               alt="matchly" 
               className="h-8 w-auto brightness-200"
             />

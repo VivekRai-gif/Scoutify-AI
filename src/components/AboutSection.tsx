@@ -7,25 +7,25 @@ export const AboutSection = () => {
       icon: <Heart className="w-6 h-6" />,
       title: 'Ethical AI',
       description: 'Committed to bias-free, transparent hiring that gives every candidate a fair chance.',
-      color: 'from-red-500 to-pink-500',
+      color: 'from-danger-10 to-danger-20',
     },
     {
       icon: <Shield className="w-6 h-6" />,
       title: 'Trust & Privacy',
       description: 'Your data is encrypted and protected. We never compromise on security or privacy.',
-      color: 'from-blue-500 to-cyan-500',
+      color: 'from-info-10 to-info-20',
     },
     {
       icon: <Zap className="w-6 h-6" />,
       title: 'Innovation',
       description: 'Constantly evolving our AI to stay ahead of hiring challenges and industry needs.',
-      color: 'from-yellow-500 to-orange-500',
+      color: 'from-warning-10 to-warning-20',
     },
     {
       icon: <Users className="w-6 h-6" />,
       title: 'Human-Centered',
       description: 'Technology that empowers people, not replaces them. AI that enhances human judgment.',
-      color: 'from-purple-500 to-pink-500',
+      color: 'from-primary-10 to-primary-30',
     },
   ];
 
@@ -58,8 +58,8 @@ export const AboutSection = () => {
     <section id="about" className="relative py-32 bg-gradient-to-b from-black via-indigo-950/10 to-black overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-indigo-500/30 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-purple-500/30 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary-20/30 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-primary-30/30 rounded-full blur-3xl" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6">
@@ -77,7 +77,7 @@ export const AboutSection = () => {
             viewport={{ once: true }}
             className="inline-block mb-4"
           >
-            <span className="px-4 py-2 glass border border-indigo-500/30 rounded-full text-indigo-400 font-semibold text-sm">
+            <span className="px-4 py-2 glass border border-primary-20/30 rounded-full text-primary-30 font-semibold text-sm">
               About Us
             </span>
           </motion.div>
@@ -98,7 +98,7 @@ export const AboutSection = () => {
           className="glass-strong rounded-3xl p-12 mb-20"
         >
           <div className="flex items-start gap-6">
-            <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center flex-shrink-0">
+            <div className="w-16 h-16 bg-gradient-to-br from-primary-10 to-primary-30 rounded-2xl flex items-center justify-center flex-shrink-0">
               <Target className="w-8 h-8 text-white" />
             </div>
             <div className="flex-1">
@@ -125,9 +125,9 @@ export const AboutSection = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="glass hover:glass-strong rounded-2xl p-8 text-center group hover:border-indigo-500/30 smooth-transition"
+              className="glass hover:glass-strong rounded-2xl p-8 text-center group hover:border-primary-10/30 smooth-transition"
             >
-              <div className="w-16 h-16 mx-auto mb-4 bg-indigo-500/20 rounded-xl flex items-center justify-center text-indigo-400 group-hover:scale-110 smooth-transition">
+              <div className="w-16 h-16 mx-auto mb-4 bg-primary-10/20 rounded-xl flex items-center justify-center text-primary-20 group-hover:scale-110 smooth-transition">
                 {stat.icon}
               </div>
               <div className="text-4xl font-bold text-white mb-2">{stat.value}</div>
@@ -157,11 +157,11 @@ export const AboutSection = () => {
                 transition={{ delay: index * 0.1 }}
                 className="group"
               >
-                <div className="glass hover:glass-strong rounded-2xl p-8 h-full smooth-transition hover:border-indigo-500/30 group-hover:translate-y-[-8px] hover:shadow-2xl hover:shadow-indigo-500/10">
+                <div className="glass hover:glass-strong rounded-2xl p-8 h-full smooth-transition hover:border-primary-10/30 group-hover:translate-y-[-8px] hover:shadow-2xl hover:shadow-primary-10/10">
                   <div className={`w-14 h-14 bg-gradient-to-br ${value.color} rounded-xl flex items-center justify-center mb-6 text-white group-hover:scale-110 smooth-transition shadow-lg`}>
                     {value.icon}
                   </div>
-                  <h4 className="text-xl font-bold text-white mb-3 group-hover:text-indigo-400 smooth-transition">
+                  <h4 className="text-xl font-bold text-white mb-3 group-hover:text-primary-20 smooth-transition">
                     {value.title}
                   </h4>
                   <p className="text-gray-400 text-sm leading-relaxed">
@@ -192,9 +192,9 @@ export const AboutSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="glass-strong rounded-2xl p-8 text-center hover:border-purple-500/30 smooth-transition"
+                className="glass-strong rounded-2xl p-8 text-center hover:border-primary-20/30 smooth-transition"
               >
-                <div className="text-5xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent mb-2">
+                <div className="text-5xl font-bold bg-gradient-to-r from-primary-20 to-primary-40 bg-clip-text text-transparent mb-2">
                   {dept.members}
                 </div>
                 <h4 className="text-2xl font-bold text-white mb-3">{dept.role}</h4>
@@ -219,10 +219,10 @@ export const AboutSection = () => {
             Be part of a movement that's making recruitment fairer, faster, and smarter for everyone.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-purple-600 hover:to-indigo-600 rounded-full font-semibold text-lg smooth-transition hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/50">
+            <button className="px-8 py-4 bg-gradient-to-r from-primary-10 to-primary-30 hover:from-primary-30 hover:to-primary-10 rounded-full font-semibold text-lg smooth-transition hover:scale-105 hover:shadow-2xl hover:shadow-primary-10/50">
               Get Started Today
             </button>
-            <button className="px-8 py-4 glass hover:glass-strong hover:border-indigo-500/40 rounded-full font-semibold text-lg smooth-transition hover:scale-105">
+            <button className="px-8 py-4 glass hover:glass-strong hover:border-primary-10/40 rounded-full font-semibold text-lg smooth-transition hover:scale-105">
               Schedule a Demo
             </button>
           </div>

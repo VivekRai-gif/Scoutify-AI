@@ -65,28 +65,41 @@ export const AboutSection = () => {
       <div className="relative max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-20"
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             className="inline-block mb-4"
           >
             <span className="px-4 py-2 glass border border-primary-20/30 rounded-full text-primary-30 font-semibold text-sm">
               About Us
             </span>
           </motion.div>
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white leading-tight">
+          <motion.h2 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="text-5xl md:text-6xl font-bold mb-6 text-white leading-tight"
+          >
             Transforming Hiring with <span className="text-gradient">Ethical AI</span>
-          </h2>
-          <p className="text-gray-400 text-xl max-w-4xl mx-auto leading-relaxed">
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-gray-400 text-xl max-w-4xl mx-auto leading-relaxed"
+          >
             We're on a mission to make hiring fair, fast, and intelligent. Scoutify AI combines cutting-edge artificial intelligence with a commitment to ethical recruitment, helping companies find the right talent while eliminating bias and inefficiency.
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* Mission Statement */}

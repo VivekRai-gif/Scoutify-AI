@@ -1,102 +1,144 @@
 import { motion } from 'framer-motion';
-import { Facebook, Twitter, Linkedin } from 'lucide-react';
+import { Facebook, Twitter, Linkedin, Mail, Phone, Github } from 'lucide-react';
 
 export const Footer = () => {
-  const links = {
-    main: [
-      { label: 'Home', href: '#' },
-      { label: 'Services', href: '#services' },
-      { label: 'Work', href: '#work' },
-      { label: 'Process', href: '#process' },
-      { label: 'About', href: '#about' },
-      { label: 'Careers', href: '#careers' },
-    ],
-  };
-
   return (
-    <footer className="relative bg-black border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-          {/* Logo */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="flex items-center gap-2"
-          >
-            <img 
-              src="/matchlylogo.png" 
-              alt="matchly" 
-              className="h-8 w-auto brightness-200"
-            />
-          </motion.div>
-
-          {/* Links */}
+    <footer className="relative bg-neutral-900 py-16">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Main Footer Content */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+          {/* Services Column */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="flex flex-wrap justify-center gap-6 md:gap-8"
+            transition={{ duration: 0.5 }}
           >
-            {links.main.map((link, index) => (
-              <a
-                key={index}
-                href={link.href}
-                className="text-gray-400 hover:text-white transition-colors text-sm"
-              >
-                {link.label}
-              </a>
-            ))}
+            <h3 className="text-white font-bold text-lg mb-4">Services</h3>
+            <ul className="space-y-3">
+              <li>
+                <a href="#services" className="text-neutral-400 hover:text-primary-400 transition-colors">
+                  AI Resume Matching
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="text-neutral-400 hover:text-primary-400 transition-colors">
+                  Skill Verification
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="text-neutral-400 hover:text-primary-400 transition-colors">
+                  Email Automation
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="text-neutral-400 hover:text-primary-400 transition-colors">
+                  ATS Optimization
+                </a>
+              </li>
+            </ul>
           </motion.div>
 
-          {/* Social Links */}
+          {/* About Column */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="flex gap-4"
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
-            {[
-              { icon: <Facebook className="w-5 h-5" />, href: '#' },
-              { icon: <Twitter className="w-5 h-5" />, href: '#' },
-              { icon: <Linkedin className="w-5 h-5" />, href: '#' },
-            ].map((social, index) => (
-              <a
-                key={index}
-                href={social.href}
-                className="w-11 h-11 rounded-xl glass hover:glass-strong hover:border-lime-400/50 flex items-center justify-center text-gray-400 hover:text-lime-400 smooth-transition hover:scale-110 hover:glow-border"
+            <h3 className="text-white font-bold text-lg mb-4">About</h3>
+            <ul className="space-y-3">
+              <li>
+                <a href="#about" className="text-neutral-400 hover:text-primary-400 transition-colors">
+                  Company
+                </a>
+              </li>
+              <li>
+                <a href="#about" className="text-neutral-400 hover:text-primary-400 transition-colors">
+                  Team
+                </a>
+              </li>
+              <li>
+                <a href="#careers" className="text-neutral-400 hover:text-primary-400 transition-colors">
+                  Careers
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className="text-neutral-400 hover:text-primary-400 transition-colors">
+                  Contact
+                </a>
+              </li>
+            </ul>
+          </motion.div>
+
+          {/* Company Info Column */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <h3 className="text-white font-bold text-lg mb-4">Matchly</h3>
+            <p className="text-neutral-400 text-sm leading-relaxed mb-6">
+              Transform your hiring process with AI-powered intelligence. We help companies find the perfect candidates faster and more efficiently.
+            </p>
+            <div className="space-y-2">
+              <a 
+                href="tel:+919354632327" 
+                className="flex items-center gap-2 text-neutral-400 hover:text-primary-400 transition-colors text-sm"
               >
-                {social.icon}
+                <Phone className="w-4 h-4" />
+                +91 9354632327
               </a>
-            ))}
+              <a 
+                href="mailto:vivekrai2416@gmail.com" 
+                className="flex items-center gap-2 text-neutral-400 hover:text-primary-400 transition-colors text-sm"
+              >
+                <Mail className="w-4 h-4" />
+                vivekrai2416@gmail.com
+              </a>
+            </div>
           </motion.div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
-          <div className="flex items-center gap-4">
-            <span>📧 hello@matchly.com</span>
-            <span>📞 +91 (810) 22-2268</span>
-          </div>
-          <div className="flex gap-4">
-            <span>Somewhere in the World</span>
-          </div>
-          <div>
-            <span>© 2024 matchly. All rights reserved.</span>
-          </div>
-        </div>
-
-        {/* Stay Connected */}
+        {/* Social Media Icons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-8 text-center"
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="flex justify-center gap-4 py-8 border-t border-neutral-800"
         >
-          <a href="#" className="text-lime-400 hover:text-lime-300 transition-colors font-medium">
-            Stay Connected
+          <a
+            href="#"
+            className="w-10 h-10 rounded-full bg-neutral-800 hover:bg-primary-600 border border-neutral-700 hover:border-primary-500 flex items-center justify-center text-neutral-400 hover:text-white transition-all duration-300"
+          >
+            <Facebook className="w-4 h-4" />
+          </a>
+          <a
+            href="#"
+            className="w-10 h-10 rounded-full bg-neutral-800 hover:bg-primary-600 border border-neutral-700 hover:border-primary-500 flex items-center justify-center text-neutral-400 hover:text-white transition-all duration-300"
+          >
+            <Twitter className="w-4 h-4" />
+          </a>
+          <a
+            href="#"
+            className="w-10 h-10 rounded-full bg-neutral-800 hover:bg-primary-600 border border-neutral-700 hover:border-primary-500 flex items-center justify-center text-neutral-400 hover:text-white transition-all duration-300"
+          >
+            <Linkedin className="w-4 h-4" />
+          </a>
+          <a
+            href="#"
+            className="w-10 h-10 rounded-full bg-neutral-800 hover:bg-primary-600 border border-neutral-700 hover:border-primary-500 flex items-center justify-center text-neutral-400 hover:text-white transition-all duration-300"
+          >
+            <Github className="w-4 h-4" />
           </a>
         </motion.div>
+
+        {/* Copyright */}
+        <div className="text-center text-neutral-500 text-sm pt-4">
+          <p>Matchly © 2024</p>
+        </div>
       </div>
     </footer>
   );

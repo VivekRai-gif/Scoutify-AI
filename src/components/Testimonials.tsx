@@ -26,18 +26,30 @@ export const Testimonials = () => {
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">
+          <motion.h2 
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-4xl md:text-5xl font-bold mb-6 text-white leading-tight"
+          >
             What our <span className="text-gradient">Clients</span> say About us
-          </h2>
-          <p className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed"
+          >
             At matchly, we take pride in delivering exceptional and client satisfaction. Here are some of the kind words our clients have to say about their experience working with us.
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* Testimonial Grid */}
@@ -45,10 +57,18 @@ export const Testimonials = () => {
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              initial={{ opacity: 0, y: 60, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ 
+                duration: 0.7, 
+                delay: index * 0.2,
+                ease: [0.16, 1, 0.3, 1]
+              }}
+              whileHover={{ 
+                scale: 1.03,
+                transition: { duration: 0.2 }
+              }}
               className="group"
             >
               <div className="glass hover:glass-strong hover:border-primary-10/30 rounded-3xl p-8 smooth-transition hover:glow-border h-full flex flex-col group-hover:translate-y-[-4px]">

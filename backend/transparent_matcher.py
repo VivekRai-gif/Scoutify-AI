@@ -14,7 +14,7 @@ class TransparentMatcher:
     
     def __init__(self, gemini_api_key: str):
         genai.configure(api_key=gemini_api_key)
-        self.model = genai.GenerativeModel('gemini-pro')
+        self.model = genai.GenerativeModel('gemini-2.5-flash')
     
     def match_with_explanation(self, resume_text: str, job_description: str) -> Dict:
         """Match candidate to job with full transparency and reasoning"""

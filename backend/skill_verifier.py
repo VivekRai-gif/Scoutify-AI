@@ -15,7 +15,7 @@ class SkillVerifier:
     
     def __init__(self, gemini_api_key: str):
         genai.configure(api_key=gemini_api_key)
-        self.model = genai.GenerativeModel('gemini-pro')
+        self.model = genai.GenerativeModel('gemini-2.5-flash')
     
     def extract_skills(self, resume_text: str) -> Dict:
         """Extract skills from resume using Gemini AI"""

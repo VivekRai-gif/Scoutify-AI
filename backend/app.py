@@ -5,6 +5,9 @@ from skill_verifier import SkillVerifier
 from bias_detector import BiasDetector
 from transparent_matcher import TransparentMatcher
 from privacy_handler import PrivacyHandler
+from job_authenticity_verifier import JobAuthenticityVerifier
+from email_crafter import EmailCrafter
+from datetime import datetime
 import os
 import requests
 
@@ -12,14 +15,16 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend communication
 
 # Gemini API Key
-GEMINI_API_KEY = "AIzaSyB8u60EAnrB_xk789GyE3XEQ4lrzlXs_Ks"
+GEMINI_API_KEY = "AIzaSyA4YrOd8_4A8j1B6KBRaBy_I8XVAnvmI3Q"
 
-# Initialize all services with Gemini AI
-ats_analyzer = ATSAnalyzer(gemini_api_key=GEMINI_API_KEY)
-skill_verifier = SkillVerifier(gemini_api_key=GEMINI_API_KEY)
-bias_detector = BiasDetector(gemini_api_key=GEMINI_API_KEY)
-transparent_matcher = TransparentMatcher(gemini_api_key=GEMINI_API_KEY)
+# Initialize all services with Gemini AI (Candidate-Focused Multi-Agent System)
+ats_analyzer = ATSAnalyzer(gemini_api_key="AIzaSyA4YrOd8_4A8j1B6KBRaBy_I8XVAnvmI3Q")
+skill_verifier = SkillVerifier(gemini_api_key="AIzaSyA4YrOd8_4A8j1B6KBRaBy_I8XVAnvmI3Q")  # Resume Intelligence Agent
+bias_detector = BiasDetector(gemini_api_key="AIzaSyA4YrOd8_4A8j1B6KBRaBy_I8XVAnvmI3Q")  # Bias Detection Agent
+transparent_matcher = TransparentMatcher(gemini_api_key="AIzaSyA4YrOd8_4A8j1B6KBRaBy_I8XVAnvmI3Q")  # Skill Match & Gap Agent
 privacy_handler = PrivacyHandler()
+job_verifier = JobAuthenticityVerifier(gemini_api_key="AIzaSyA4YrOd8_4A8j1B6KBRaBy_I8XVAnvmI3Q")  # Job Authenticity Agent
+email_crafter = EmailCrafter(gemini_api_key="AIzaSyA4YrOd8_4A8j1B6KBRaBy_I8XVAnvmI3Q")  # Email Crafting Agent
 
 @app.route('/api/health', methods=['GET'])
 def health_check():
@@ -496,6 +501,244 @@ def start_campaign():
             'success': False,
             'error': f'Server error: {str(e)}'
         }), 500
+
+
+# 5️⃣ JOB AUTHENTICITY VERIFICATION
+@app.route('/api/job/verify-authenticity', methods=['POST'])
+def verify_job_authenticity():
+    """Verify authenticity of a job posting"""
+    try:
+        data = request.get_json()
+        
+        if not data or 'job_description' not in data:
+            return jsonify({'success': False, 'error': 'Missing job_description'}), 400
+        
+        job_description = data['job_description']
+        company_name = data.get('company_name', None)
+        salary_info = data.get('salary_info', None)
+        
+        # Verify job authenticity
+        result = job_verifier.verify_job_posting(job_description, company_name, salary_info)
+        
+        return jsonify(result)
+    
+    except Exception as e:
+        return jsonify({'success': False, 'error': f'Server error: {str(e)}'}), 500
+
+
+@app.route('/api/job/quick-safety-check', methods=['POST'])
+def quick_job_safety_check():
+    """Quick safety check for job posting"""
+    try:
+        data = request.get_json()
+        
+        if not data or 'job_description' not in data:
+            return jsonify({'success': False, 'error': 'Missing job_description'}), 400
+        
+        job_description = data['job_description']
+        
+        # Quick safety check
+        result = job_verifier.quick_safety_check(job_description)
+        
+        return jsonify(result)
+    
+    except Exception as e:
+        return jsonify({'success': False, 'error': f'Server error: {str(e)}'}), 500
+
+
+@app.route('/api/job/industry-comparison', methods=['POST'])
+def job_industry_comparison():
+    """Compare job posting with industry standards"""
+    try:
+        data = request.get_json()
+        
+        if not data or 'job_description' not in data or 'job_role' not in data:
+            return jsonify({'success': False, 'error': 'Missing required fields'}), 400
+        
+        job_description = data['job_description']
+        job_role = data['job_role']
+        experience_level = data.get('experience_level', 'mid')
+        
+        # Industry comparison
+        result = job_verifier.compare_with_industry_standards(job_description, job_role, experience_level)
+        
+        return jsonify(result)
+    
+    except Exception as e:
+        return jsonify({'success': False, 'error': f'Server error: {str(e)}'}), 500
+
+
+# 6️⃣ EMAIL CRAFTING
+@app.route('/api/email/craft-application', methods=['POST'])
+def craft_application_email():
+    """Generate personalized job application email"""
+    try:
+        data = request.get_json()
+        
+        if not data or 'resume_data' not in data or 'job_description' not in data or 'company_name' not in data:
+            return jsonify({'success': False, 'error': 'Missing required fields'}), 400
+        
+        resume_data = data['resume_data']
+        job_description = data['job_description']
+        company_name = data['company_name']
+        hiring_manager_name = data.get('hiring_manager_name', None)
+        tone = data.get('tone', 'professional')
+        
+        # Craft email
+        result = email_crafter.craft_application_email(
+            resume_data, job_description, company_name, hiring_manager_name, tone
+        )
+        
+        return jsonify(result)
+    
+    except Exception as e:
+        return jsonify({'success': False, 'error': f'Server error: {str(e)}'}), 500
+
+
+@app.route('/api/email/craft-follow-up', methods=['POST'])
+def craft_follow_up_email():
+    """Generate follow-up email after application"""
+    try:
+        data = request.get_json()
+        
+        if not data or 'original_email' not in data or 'company_name' not in data:
+            return jsonify({'success': False, 'error': 'Missing required fields'}), 400
+        
+        original_email = data['original_email']
+        days_since_application = data.get('days_since_application', 7)
+        company_name = data['company_name']
+        
+        # Craft follow-up email
+        result = email_crafter.craft_follow_up_email(
+            original_email, days_since_application, company_name
+        )
+        
+        return jsonify(result)
+    
+    except Exception as e:
+        return jsonify({'success': False, 'error': f'Server error: {str(e)}'}), 500
+
+
+@app.route('/api/email/linkedin-message', methods=['POST'])
+def create_linkedin_message():
+    """Generate LinkedIn message to recruiter"""
+    try:
+        data = request.get_json()
+        
+        if not data or 'recruiter_name' not in data or 'company_name' not in data or 'job_title' not in data:
+            return jsonify({'success': False, 'error': 'Missing required fields'}), 400
+        
+        recruiter_name = data['recruiter_name']
+        company_name = data['company_name']
+        job_title = data['job_title']
+        candidate_highlights = data.get('candidate_highlights', '')
+        
+        # Create LinkedIn message
+        result = email_crafter.create_linkedin_message(
+            recruiter_name, company_name, job_title, candidate_highlights
+        )
+        
+        return jsonify(result)
+    
+    except Exception as e:
+        return jsonify({'success': False, 'error': f'Server error: {str(e)}'}), 500
+
+
+@app.route('/api/email/cold-outreach', methods=['POST'])
+def generate_cold_email():
+    """Generate cold outreach email"""
+    try:
+        data = request.get_json()
+        
+        if not data or 'target_role' not in data or 'company_name' not in data:
+            return jsonify({'success': False, 'error': 'Missing required fields'}), 400
+        
+        target_role = data['target_role']
+        company_name = data['company_name']
+        candidate_summary = data.get('candidate_summary', '')
+        value_proposition = data.get('value_proposition', '')
+        
+        # Generate cold email
+        result = email_crafter.generate_cold_email(
+            target_role, company_name, candidate_summary, value_proposition
+        )
+        
+        return jsonify(result)
+    
+    except Exception as e:
+        return jsonify({'success': False, 'error': f'Server error: {str(e)}'}), 500
+
+
+@app.route('/api/email/variants', methods=['POST'])
+def create_email_variants():
+    """Generate email variants for A/B testing"""
+    try:
+        data = request.get_json()
+        
+        if not data or 'base_email' not in data:
+            return jsonify({'success': False, 'error': 'Missing base_email'}), 400
+        
+        base_email = data['base_email']
+        num_variants = data.get('num_variants', 3)
+        
+        # Generate variants
+        result = email_crafter.create_email_variants(base_email, num_variants)
+        
+        return jsonify(result)
+    
+    except Exception as e:
+        return jsonify({'success': False, 'error': f'Server error: {str(e)}'}), 500
+
+
+# 7️⃣ CANDIDATE CAREER INTELLIGENCE (Combined Analysis)
+@app.route('/api/candidate/career-intelligence', methods=['POST'])
+def candidate_career_intelligence():
+    """Complete candidate-focused career intelligence analysis"""
+    try:
+        if 'resume' not in request.files:
+            return jsonify({'success': False, 'error': 'No resume file provided'}), 400
+        
+        resume_file = request.files['resume']
+        job_description = request.form.get('jobDescription', '')
+        company_name = request.form.get('companyName', 'the company')
+        
+        if not job_description:
+            return jsonify({'success': False, 'error': 'Job description is required'}), 400
+        
+        file_content = resume_file.read()
+        filename = resume_file.filename
+        
+        # Extract resume text
+        resume_text = ats_analyzer.extract_text(file_content, filename)
+        
+        # 1. Resume Intelligence: Extract structured data
+        skills_data = skill_verifier.extract_skills(resume_text)
+        
+        # 2. Skill Match & Gap Analysis
+        match_analysis = transparent_matcher.match_with_explanation(resume_text, job_description)
+        
+        # 3. Bias-Reduced Evaluation
+        bias_free_eval = bias_detector.fair_evaluation(resume_text, job_description)
+        
+        # 4. Job Authenticity Check
+        job_safety = job_verifier.quick_safety_check(job_description)
+        
+        # Return comprehensive analysis
+        return jsonify({
+            'success': True,
+            'candidate_intelligence': {
+                'resume_intelligence': skills_data,
+                'skill_match_analysis': match_analysis,
+                'bias_free_evaluation': bias_free_eval,
+                'job_safety_check': job_safety,
+                'ready_for_email_generation': True,
+                'company_name': company_name
+            },
+            'analyzed_at': datetime.now().isoformat()
+        })
+    
+    except Exception as e:
+        return jsonify({'success': False, 'error': f'Server error: {str(e)}'}), 500
 
 
 # ==================== END NEW ENDPOINTS ====================

@@ -1,12 +1,21 @@
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Mail, Check, ArrowRight, Sparkles, FileCheck, Award, Shield, Eye } from 'lucide-react';
+import { useRef } from 'react';
 
 export const FeaturesShowcase = () => {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+  
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
   const features = [
     {
       icon: <Mail className="w-10 h-10" />,
-      iconColor: 'from-primary-10 to-primary-20',
+      iconColor: 'from-primary-600 to-primary-500',
       title: 'Automated Email Campaigns',
       subtitle: 'Smart Communication at Scale',
       description: 'Streamline your candidate communication with intelligent automation. Send personalized emails, schedule interviews, and keep candidates engaged throughout the hiring process.',
@@ -23,7 +32,7 @@ export const FeaturesShowcase = () => {
     },
     {
       icon: <FileCheck className="w-10 h-10" />,
-      iconColor: 'from-info-10 to-info-20',
+      iconColor: 'from-blue-600 to-blue-500',
       title: 'ATS Compatibility Check',
       subtitle: 'Resume Optimization Scanner',
       description: 'Ensure resumes are ATS-friendly and optimized for automated screening systems. Detect formatting issues, keyword mismatches, and compatibility problems before submission.',
@@ -92,26 +101,53 @@ export const FeaturesShowcase = () => {
   ];
 
   return (
-    <section className="relative py-32 bg-gradient-to-b from-black via-primary-10/5 to-black">
-      <div className="max-w-7xl mx-auto px-6">
+    <section ref={containerRef} className="relative py-32 bg-gradient-to-b from-black via-neutral-900 to-black overflow-hidden">
+      {/* Parallax Background Elements */}
+      <motion.div 
+        style={{ y }}
+        className="absolute inset-0 opacity-20 pointer-events-none"
+      >
+        <div className="absolute top-20 left-10 w-64 h-64 bg-primary-500 rounded-full blur-3xl opacity-20" />
+        <div className="absolute bottom-40 right-20 w-80 h-80 bg-blue-500 rounded-full blur-3xl opacity-20" />
+      </motion.div>
+
+      <div className="relative max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-20"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full mb-6">
-            <Sparkles className="w-4 h-4 text-primary-10" />
-            <span className="text-sm text-primary-10 font-semibold">Powerful Features</span>
-          </div>
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white leading-tight">
+          <motion.div 
+            initial={{ scale: 0.8, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 border border-primary-500 rounded-full mb-6"
+          >
+            <Sparkles className="w-4 h-4 text-primary-400" />
+            <span className="text-sm text-primary-400 font-semibold">Powerful Features</span>
+          </motion.div>
+          <motion.h2 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-5xl md:text-6xl font-bold mb-6 text-white leading-tight"
+          >
             Everything You Need to <span className="text-gradient">Hire Better</span>
-          </h2>
-          <p className="text-gray-400 text-xl max-w-3xl mx-auto leading-relaxed">
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-neutral-400 text-xl max-w-3xl mx-auto leading-relaxed"
+          >
             Comprehensive recruitment tools powered by AI to streamline your hiring workflow from start to finish
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* Feature Cards */}
@@ -119,10 +155,14 @@ export const FeaturesShowcase = () => {
           {features.map((feature, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 80 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
+              viewport={{ once: true, margin: "-150px" }}
+              transition={{ 
+                duration: 1, 
+                delay: index * 0.1,
+                ease: [0.16, 1, 0.3, 1]
+              }}
               className={`flex flex-col ${
                 index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
               } gap-12 items-center`}
@@ -131,68 +171,111 @@ export const FeaturesShowcase = () => {
               <div className="flex-1 space-y-6">
                 {/* Icon & Title */}
                 <div className="space-y-4">
-                  <div className={`w-20 h-20 bg-gradient-to-br ${feature.iconColor} rounded-3xl flex items-center justify-center text-white shadow-2xl shadow-primary-10/20`}>
+                  <div className={`w-20 h-20 bg-gradient-to-br ${feature.iconColor} rounded-3xl flex items-center justify-center text-white shadow-large`}>
                     {feature.icon}
                   </div>
                   <div>
-                    <p className="text-primary-10 font-semibold mb-2 text-sm uppercase tracking-wider">
+                    <p className="text-primary-400 font-semibold mb-2 text-sm uppercase tracking-wider">
                       {feature.subtitle}
                     </p>
                     <h3 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
                       {feature.title}
                     </h3>
-                    <p className="text-gray-400 text-lg leading-relaxed">
+                    <p className="text-neutral-400 text-lg leading-relaxed">
                       {feature.description}
                     </p>
                   </div>
                 </div>
 
                 {/* Benefits List */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <motion.div 
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={{
+                    hidden: {},
+                    visible: {
+                      transition: {
+                        staggerChildren: 0.08
+                      }
+                    }
+                  }}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-3"
+                >
                   {feature.benefits.map((benefit, idx) => (
                     <motion.div
                       key={idx}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.1 * idx }}
+                      variants={{
+                        hidden: { opacity: 0, x: index % 2 === 0 ? -30 : 30 },
+                        visible: { opacity: 1, x: 0 }
+                      }}
+                      transition={{ duration: 0.5, ease: "easeOut" }}
                       className="flex items-start gap-3"
                     >
-                      <div className="w-5 h-5 rounded-full bg-primary-10/20 flex items-center justify-center mt-0.5 flex-shrink-0">
-                        <Check className="w-3 h-3 text-primary-10" />
+                      <div className="w-5 h-5 rounded-full bg-primary-900 flex items-center justify-center mt-0.5 flex-shrink-0">
+                        <Check className="w-3 h-3 text-primary-400" />
                       </div>
-                      <span className="text-gray-300 text-sm leading-relaxed">
+                      <span className="text-neutral-300 text-sm leading-relaxed">
                         {benefit}
                       </span>
                     </motion.div>
                   ))}
-                </div>
+                </motion.div>
 
                 {/* CTA */}
                 <Link 
                   to={feature.route}
-                  className="group mt-6 px-6 py-3 glass hover:glass-strong hover:border-primary-10/40 hover:glow-border rounded-xl smooth-transition flex items-center gap-2 text-white font-semibold w-fit"
+                  className="group mt-6 px-6 py-3 bg-neutral-900 border-2 border-primary-500 text-primary-400 hover:bg-primary-600 hover:text-white rounded-xl transition-all duration-300 flex items-center gap-2 font-semibold w-fit"
                 >
                   Explore Feature
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 smooth-transition" />
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
 
               {/* Visual Side */}
-              <div className="flex-1">
-                <div className="glass-strong rounded-3xl p-12 hover:glow-border smooth-transition group">
+              <motion.div 
+                className="flex-1"
+                initial={{ opacity: 0, scale: 0.8, rotate: index % 2 === 0 ? -5 : 5 }}
+                whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ scale: 1.05, rotate: 2 }}
+              >
+                <div className="card hover:shadow-medium transition-all duration-300 group">
                   <div className="text-center">
-                    <div className="text-9xl mb-6 group-hover:scale-110 smooth-transition">
+                    <motion.div 
+                      className="text-9xl mb-6"
+                      whileHover={{ scale: 1.2, rotate: 10 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
                       {feature.image}
-                    </div>
+                    </motion.div>
                     <div className="space-y-4">
-                      <div className="h-3 bg-gradient-to-r from-primary-10/30 to-transparent rounded-full"></div>
-                      <div className="h-3 bg-gradient-to-r from-primary-20/30 to-transparent rounded-full w-4/5 mx-auto"></div>
-                      <div className="h-3 bg-gradient-to-r from-primary-10/30 to-transparent rounded-full w-3/5 mx-auto"></div>
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        whileInView={{ width: "100%" }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.4 }}
+                        className="h-3 bg-gradient-to-r from-primary-200 to-transparent rounded-full"
+                      />
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        whileInView={{ width: "80%" }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.5 }}
+                        className="h-3 bg-gradient-to-r from-primary-300 to-transparent rounded-full mx-auto"
+                      />
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        whileInView={{ width: "60%" }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.6 }}
+                        className="h-3 bg-gradient-to-r from-primary-200 to-transparent rounded-full mx-auto"
+                      />
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
@@ -205,14 +288,14 @@ export const FeaturesShowcase = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center mt-24"
         >
-          <div className="glass-strong rounded-3xl p-12 max-w-4xl mx-auto">
-            <h3 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+          <div className="card max-w-4xl mx-auto">
+            <h3 className="text-3xl md:text-4xl font-bold mb-4 text-neutral-900">
               Ready to Transform Your Hiring?
             </h3>
-            <p className="text-gray-400 text-lg mb-8">
+            <p className="text-neutral-600 text-lg mb-8">
               Join hundreds of companies using matchly to find the perfect candidates faster
             </p>
-            <button className="px-8 py-4 bg-gradient-to-r from-primary-10 to-primary-20 hover:from-primary-20 hover:to-primary-30 text-white font-bold rounded-xl smooth-transition hover:scale-105 hover:shadow-2xl hover:shadow-primary-10/30 text-lg">
+            <button className="px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-700 hover:to-primary-600 text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-primary text-lg">
               Start Free Trial
             </button>
           </div>

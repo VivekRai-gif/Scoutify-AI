@@ -21,7 +21,7 @@ class ATSAnalyzer:
         # Configure Gemini AI
         if gemini_api_key:
             genai.configure(api_key=gemini_api_key)
-            self.model = genai.GenerativeModel('gemini-pro')
+            self.model = genai.GenerativeModel('gemini-2.5-flash')
         else:
             self.model = None
         

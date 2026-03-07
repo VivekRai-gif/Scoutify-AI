@@ -15,7 +15,7 @@ class BiasDetector:
     
     def __init__(self, gemini_api_key: str):
         genai.configure(api_key=gemini_api_key)
-        self.model = genai.GenerativeModel('gemini-pro')
+        self.model = genai.GenerativeModel('gemini-2.5-flash')
         
         # Sensitive attributes to mask/detect
         self.sensitive_attributes = [

@@ -1,71 +1,231 @@
-# Matchly
+# Matchly - AI Career Intelligence Platform
 
-AI-Powered Ethical Resume Matching Platform
+**🧠 Candidate-Focused AI Career Intelligence System**
 
-Matchly is a multi-agent AI system that automates resume screening with fairness, transparency, and explainability at its core.
-
-Built by Team Zygo.
+Matchly is a comprehensive candidate-focused AI career intelligence platform built using a multi-agent architecture to help job seekers understand their job readiness, identify skill gaps, and apply to opportunities more effectively.
 
 ---
 
-## Problem
+## 🎯 Overview
 
-- Recruiters receive thousands of resumes per role
-- Keyword filters miss strong candidates
-- Bias affects hiring decisions
-- Black-box AI lacks transparency
+The system analyzes a candidate's resume and compares it with a job description to provide a **skill-based evaluation** instead of traditional keyword filtering. Using a **multi-agent AI architecture**, Matchly delivers deep insights, bias-free analysis, job safety verification, and personalized application emails.
 
 ---
 
-## Solution
+## 🤖 Multi-Agent Architecture
 
-Matchly introduces an ethical AI layer for hiring.
+### 1. **Resume Intelligence Agent**
+Extracts structured data from resumes including:
+- Technical and soft skills
+- Experience level and projects  
+- Certifications and education
+- Tools and technologies
 
-Our multi-agent system:
-- Parses resumes intelligently
-- Matches skills semantically (not just keywords)
-- Scores job-fit relevance
-- Detects potential bias
-- Explains every decision clearly
+### 2. **Skill Match & Gap Agent**
+Compares candidate skills with job requirements to generate:
+- **Match percentage** (0-100%)
+- **Matched skills** with evidence
+- **Missing skills** and gaps
+- **Improvement suggestions** for candidates
 
----
+### 3. **Bias Detection Agent**
+Removes sensitive attributes for fair evaluation:
+- Masks name, gender, age, location
+- Removes demographic information
+- Provides **skill-first assessment**
+- Ensures unbiased candidate evaluation
 
-## How It Works
+### 4. **Job Authenticity Verification Agent** 🆕
+Analyzes job postings for legitimacy:
+- Detects suspicious patterns and scam indicators
+- Verifies company information
+- Flags red flags (payment requests, unrealistic offers)
+- Provides **safety ratings** (safe/caution/suspicious/scam)
 
-1. Upload job description + resumes
-2. AI agents evaluate candidates:
-   - Resume Parsing Agent
-   - Skill Matching Agent
-   - Bias Audit Agent
-   - Decision Synthesizer Agent
-3. Output:
-   - Ranked candidates
-   - Match score (%)
-   - Fairness score
-   - Transparent explanation
-
----
-
-## Tech Stack
-
-- Python
-- OpenAI API
-- LangChain
-- FAISS
-- n8n
-- Streamlit
-
----
-
-## Why Matchly
-
-- Faster hiring
-- Fair & explainable AI
-- Bias-aware evaluation
-- SaaS-ready architecture
+### 5. **Email Crafting Agent** 🆕
+Generates personalized job application emails:
+- Tailored to job description and candidate profile
+- Professional and compelling content
+- Multiple subject line options
+- Follow-up email generation
+- LinkedIn message templates
 
 ---
 
-## Vision
+## ⭐ Key Features
 
-To become the ethical intelligence layer powering the future of recruitment.
+✅ **AI resume skill extraction**  
+✅ **Skill match percentage** with job descriptions  
+✅ **Skill gap identification** and improvement suggestions  
+✅ **Bias-reduced evaluation** for fair assessment  
+✅ **Job authenticity verification** to detect fake listings  
+✅ **AI-generated personalized** job application emails  
+✅ **Structured insights** displayed on clean UI  
+✅ **Multi-agent orchestration** with automation support  
+
+---
+
+## 🚀 Unique Selling Proposition (USP)
+
+Matchly combines **multi-agent AI**, **skill-first hiring analysis**, **bias-reduced evaluation**, and **job authenticity detection** in a single candidate-focused platform.
+
+Instead of simply filtering resumes, Matchly:
+- **Analyzes** your qualifications with AI precision
+- **Explains** exactly where you match and what's missing
+- **Verifies** job posting authenticity to protect you
+- **Assists** in crafting professional application emails
+- Acts as your intelligent **AI career assistant**
+
+---
+
+## 🛠️ Tech Stack
+
+### Backend
+- **Python** (Flask)
+- **Google Gemini AI** (Multi-agent orchestration)
+- **CORS** enabled for frontend communication
+
+### Frontend
+- **React** + **TypeScript**
+- **TailwindCSS** (Styling)
+- **Framer Motion** (Animations)
+- **React Router** (Navigation)
+- **Lucide Icons**
+
+### AI Agents
+- Gemini Pro model for intelligent analysis
+- Natural language processing
+- Semantic understanding
+- Explainable AI outputs
+
+---
+
+## 📦 Installation
+
+### Prerequisites
+- Python 3.8+
+- Node.js 16+
+- npm or yarn
+
+### Backend Setup
+
+```bash
+cd backend
+pip install -r requirements.txt
+python app.py
+```
+
+The backend API will run on `http://localhost:5000`
+
+### Frontend Setup
+
+```bash
+npm install
+npm run dev
+```
+
+The frontend will run on `http://localhost:5173`
+
+---
+
+## 🔗 API Endpoints
+
+### Core Intelligence Endpoint
+- `POST /api/candidate/career-intelligence` - Complete candidate analysis
+
+### Resume Intelligence
+- `POST /api/skills/extract` - Extract skills from resume
+- `POST /api/skills/verify` - Verify skill claims
+- `POST /api/skills/cross-verify` - Cross-verify with job requirements
+
+### Skill Matching
+- `POST /api/match/transparent` - Transparent matching with explanation
+- `POST /api/match/score-breakdown` - Detailed score breakdown
+
+### Bias Detection
+- `POST /api/bias/mask-personal-info` - Mask demographic data
+- `POST /api/bias/fair-evaluation` - Bias-free evaluation
+
+### Job Authenticity 🆕
+- `POST /api/job/verify-authenticity` - Full job verification
+- `POST /api/job/quick-safety-check` - Quick safety check
+- `POST /api/job/industry-comparison` - Compare with standards
+
+### Email Crafting 🆕
+- `POST /api/email/craft-application` - Generate application email
+- `POST /api/email/craft-follow-up` - Generate follow-up email
+- `POST /api/email/linkedin-message` - LinkedIn message templates
+- `POST /api/email/cold-outreach` - Cold outreach emails
+
+---
+
+## 📊 How It Works
+
+1. **Upload** your resume and paste the job description
+2. **AI agents** work together to:
+   - Extract your skills and experience (Resume Intelligence Agent)
+   - Match against job requirements (Skill Match Agent)
+   - Remove bias from evaluation (Bias Detection Agent)
+   - Check job posting safety (Authenticity Agent)
+3. **View Results**:
+   - Match score percentage
+   - Matched vs missing skills
+   - Job safety rating
+   - Improvement recommendations
+4. **Generate Email**:
+   - AI crafts personalized application email
+   - Copy and send to employer
+
+---
+
+## 🎨 UI Features
+
+- **Clean, modern interface** with dark theme
+- **Real-time analysis** with loading states
+- **Tabbed interface** (Analysis / Email)
+- **Color-coded results** (match scores, safety ratings)
+- **Copy-to-clipboard** functionality for emails
+- **Responsive design** for all devices
+
+---
+
+## 🔐 Privacy & Ethics
+
+- **Bias-free evaluation** - demographic data removed
+- **Transparent AI** - all decisions explained
+- **Candidate-first** - designed to help job seekers
+- **No data storage** - privacy-preserving analysis
+- **Fair assessment** - skill-based matching only
+
+---
+
+## 🌟 Vision
+
+To become the **ethical intelligence layer** powering the future of recruitment by:
+- Empowering candidates with AI insights
+- Removing bias from hiring
+- Protecting job seekers from scams
+- Making job applications more effective
+- Democratizing access to career intelligence
+
+---
+
+## 👥 Built By
+
+**Team Zygo** - Creating the future of ethical AI-powered recruitment
+
+---
+
+## 📄 License
+
+MIT License - feel free to use and contribute!
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please feel free to submit issues and pull requests.
+
+---
+
+**Made with ❤️ and AI**

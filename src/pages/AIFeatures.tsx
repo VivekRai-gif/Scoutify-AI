@@ -9,6 +9,7 @@ import {
   Upload,
   TrendingUp
 } from 'lucide-react';
+import { MatchAnalysisVisual } from '../components/dashboard/MatchAnalysisVisual';
 
 const AIFeatures: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -249,84 +250,57 @@ const AIFeatures: React.FC = () => {
     if (!matchResult || !matchResult.success) return null;
 
     const match = matchResult.transparent_match;
+    
     return (
-      <div className="mt-6 space-y-4">
-        <div className="glass-strong rounded-2xl p-6 border-l-4 border-green-500">
-          <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-            <Eye className="w-6 h-6 text-green-400" />
-            Transparent Match Analysis
-          </h3>
-          
-          <div className="mb-6">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-gray-300 font-medium">Overall Match Score:</span>
-              <span className="text-4xl font-bold text-green-400">{match.overall_match_score}/100</span>
-            </div>
-            <div className="bg-white/10 rounded-full h-5 overflow-hidden">
-              <div 
-                className="bg-gradient-to-r from-green-500 to-teal-500 h-full transition-all duration-500 shadow-lg"
-                style={{ width: `${match.overall_match_score}%` }}
-              ></div>
-            </div>
-          </div>
+      <div className="mt-6 space-y-6">
+        {/* Visual Score Breakdown */}
+        <MatchAnalysisVisual matchData={match} />
 
-          <div className="glass rounded-xl p-5 border border-green-500/30 mb-6">
-            <h4 className="font-semibold text-gray-300 mb-3 flex items-center gap-2">
-              <Eye className="w-5 h-5 text-green-400" />
-              Transparency Statement:
-            </h4>
-            <p className="text-sm text-gray-300 leading-relaxed">
-              {match.transparency_statement}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            {match.skill_alignment && (
-              <div className="glass rounded-xl p-4 border border-white/10 hover:border-green-500/50 smooth-transition">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-gray-300">Skill Alignment</span>
-                  <span className="text-xl font-bold text-green-400">{match.skill_alignment.score}%</span>
-                </div>
-                <p className="text-xs text-gray-400">{match.skill_alignment.explanation?.substring(0, 100)}...</p>
-              </div>
-            )}
-
-            {match.experience_alignment && (
-              <div className="glass rounded-xl p-4 border border-white/10 hover:border-green-500/50 smooth-transition">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-gray-300">Experience Alignment</span>
-                  <span className="text-xl font-bold text-green-400">{match.experience_alignment.score}%</span>
-                </div>
-                <p className="text-xs text-gray-400">{match.experience_alignment.explanation?.substring(0, 100)}...</p>
-              </div>
-            )}
-          </div>
-
+        {/* Detailed Sections */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Strengths */}
           {match.strengths && match.strengths.length > 0 && (
-            <div className="mb-6">
-              <h4 className="font-semibold text-gray-300 mb-3">Top Strengths:</h4>
+            <div className="glass-strong rounded-2xl p-6 border border-green-500/30">
+              <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <CheckCircle className="w-6 h-6 text-green-400" />
+                Top Strengths
+              </h4>
               <div className="space-y-3">
-                {match.strengths.slice(0, 3).map((item: any, idx: number) => (
-                  <div key={idx} className="glass rounded-xl p-4 border border-green-500/30">
-                    <p className="text-sm font-medium text-green-400">{item.strength}</p>
-                    <p className="text-xs text-gray-400 mt-2">{item.value_to_role}</p>
+                {match.strengths.slice(0, 5).map((item: any, idx: number) => (
+                  <div key={idx} className="glass rounded-xl p-4 border border-green-500/20 hover:border-green-500/40 smooth-transition">
+                    <p className="text-sm font-bold text-green-400 mb-2">{item.strength}</p>
+                    <p className="text-xs text-gray-400 mb-2">{item.evidence}</p>
+                    <p className="text-xs text-gray-300 italic">Value: {item.value_to_role}</p>
                   </div>
                 ))}
               </div>
             </div>
           )}
 
+          {/* Concerns */}
           {match.concerns && match.concerns.length > 0 && (
-            <div className="mb-6">
-              <h4 className="font-semibold text-gray-300 mb-3">Areas of Concern:</h4>
+            <div className="glass-strong rounded-2xl p-6 border border-yellow-500/30">
+              <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <AlertTriangle className="w-6 h-6 text-yellow-400" />
+                Areas of Concern
+              </h4>
               <div className="space-y-3">
-                {match.concerns.slice(0, 3).map((item: any, idx: number) => (
-                  <div key={idx} className="glass rounded-xl p-4 border border-yellow-500/30">
+                {match.concerns.slice(0, 5).map((item: any, idx: number) => (
+                  <div key={idx} className="glass rounded-xl p-4 border border-yellow-500/20 hover:border-yellow-500/40 smooth-transition">
                     <div className="flex items-start gap-3">
-                      <AlertTriangle className="w-5 h-5 text-yellow-400 mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="text-sm font-medium text-yellow-400">{item.concern}</p>
-                        <p className="text-xs text-gray-400 mt-2">Severity: {item.severity}</p>
+                      <div className={`px-2 py-1 rounded text-xs font-bold ${
+                        item.severity === 'critical' ? 'bg-red-500/20 text-red-400' :
+                        item.severity === 'high' ? 'bg-orange-500/20 text-orange-400' :
+                        'bg-yellow-500/20 text-yellow-400'
+                      }`}>
+                        {item.severity}
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-bold text-yellow-400 mb-2">{item.concern}</p>
+                        <p className="text-xs text-gray-400 mb-2">{item.evidence}</p>
+                        {item.mitigation && (
+                          <p className="text-xs text-gray-300 italic">💡 Mitigation: {item.mitigation}</p>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -334,13 +308,38 @@ const AIFeatures: React.FC = () => {
               </div>
             </div>
           )}
-
-          <div className="glass rounded-xl p-4 border border-green-500/30">
-            <p className="text-sm text-gray-300">
-              <strong className="text-green-400">Next Step:</strong> {match.next_steps?.recommendation?.replace('_', ' ')} - {match.next_steps?.reasoning}
-            </p>
-          </div>
         </div>
+
+        {/* Interview Focus & Next Steps */}
+        {match.next_steps && (
+          <div className="glass-strong rounded-2xl p-6 border border-primary-10/30">
+            <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+              <TrendingUp className="w-6 h-6 text-primary-20" />
+              Next Steps
+            </h4>
+            <div className="space-y-4">
+              <p className="text-gray-300">
+                <strong className="text-primary-20">Recommendation:</strong> {match.next_steps.recommendation?.replace(/_/g, ' ').toUpperCase()}
+              </p>
+              <p className="text-sm text-gray-400 leading-relaxed">
+                {match.next_steps.reasoning}
+              </p>
+              {match.next_steps.interview_focus_areas && match.next_steps.interview_focus_areas.length > 0 && (
+                <div>
+                  <p className="text-sm font-semibold text-gray-300 mb-2">Interview Focus Areas:</p>
+                  <ul className="space-y-2">
+                    {match.next_steps.interview_focus_areas.map((area: string, idx: number) => (
+                      <li key={idx} className="text-sm text-gray-400 flex items-start gap-2">
+                        <span className="text-primary-20 mt-1">•</span>
+                        <span>{area}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     );
   };

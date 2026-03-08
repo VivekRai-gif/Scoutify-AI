@@ -100,14 +100,16 @@ export const EmailCampaigns = () => {
         console.error('Campaign error details:', data);
         setMessage({ type: 'error', text: errorText });
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error starting campaign:', error);
       
       let errorMessage = 'Error connecting to campaign service.';
-      if (error.message?.includes('Failed to fetch')) {
-        errorMessage = 'Cannot connect to backend server. Please ensure the server is running on port 5000.';
-      } else if (error.message) {
-        errorMessage = `Error: ${error.message}`;
+      if (error instanceof Error) {
+        if (error.message?.includes('Failed to fetch')) {
+          errorMessage = 'Cannot connect to backend server. Please ensure the server is running on port 5000.';
+        } else if (error.message) {
+          errorMessage = `Error: ${error.message}`;
+        }
       }
       
       setMessage({ type: 'error', text: errorMessage });

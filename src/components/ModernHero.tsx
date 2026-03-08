@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Play, Brain, Target } from 'lucide-react';
+import { ArrowRight, Play, Brain } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export const ModernHero = () => {

@@ -153,7 +153,7 @@ const AIFeatures: React.FC = () => {
             <div className="mb-6">
               <h4 className="font-semibold text-gray-300 mb-3">Technical Skills:</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {skills.technical_skills.slice(0, 10).map((skill: any, idx: number) => (
+                {skills.technical_skills.slice(0, 10).map((skill: { skill?: string; evidence_found?: boolean; category?: string; proficiency_level?: string }, idx: number) => (
                   <div key={idx} className="glass rounded-xl p-4 border border-white/10 hover:border-blue-500/50 smooth-transition">
                     <div className="flex items-center justify-between">
                       <span className="font-medium text-white">{skill.skill}</span>
@@ -266,7 +266,7 @@ const AIFeatures: React.FC = () => {
                 Top Strengths
               </h4>
               <div className="space-y-3">
-                {match.strengths.slice(0, 5).map((item: any, idx: number) => (
+                {match.strengths.slice(0, 5).map((item: { strength?: string; evidence?: string; value_to_role?: string }, idx: number) => (
                   <div key={idx} className="glass rounded-xl p-4 border border-green-500/20 hover:border-green-500/40 smooth-transition">
                     <p className="text-sm font-bold text-green-400 mb-2">{item.strength}</p>
                     <p className="text-xs text-gray-400 mb-2">{item.evidence}</p>
@@ -615,7 +615,7 @@ const AIFeatures: React.FC = () => {
             </div>
             <h3 className="font-bold text-white mb-3 group-hover:text-primary-10 smooth-transition">Skill Credentials</h3>
             <p className="text-sm text-gray-400 leading-relaxed">
-              AI-verified skills with evidence from resume and projects
+              AI-verified skills with evidence
             </p>
           </button>
 
@@ -630,7 +630,7 @@ const AIFeatures: React.FC = () => {
             </div>
             <h3 className="font-bold text-white mb-3 group-hover:text-primary-10 smooth-transition">Bias Detection</h3>
             <p className="text-sm text-gray-400 leading-relaxed">
-              Fair evaluation with masked personal attributes
+              Fair evaluation, masked attributes
             </p>
           </button>
 
@@ -645,7 +645,7 @@ const AIFeatures: React.FC = () => {
             </div>
             <h3 className="font-bold text-white mb-3 group-hover:text-primary-10 smooth-transition">Transparent Matching</h3>
             <p className="text-sm text-gray-400 leading-relaxed">
-              Full explanation of every decision and score
+              Clear reasoning for all scores
             </p>
           </button>
 
@@ -660,7 +660,7 @@ const AIFeatures: React.FC = () => {
             </div>
             <h3 className="font-bold text-white mb-3 group-hover:text-primary-10 smooth-transition">Privacy-Preserving</h3>
             <p className="text-sm text-gray-400 leading-relaxed">
-              Minimal data processing with PII masking
+              PII masked, minimal processing
             </p>
           </button>
         </div>

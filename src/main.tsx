@@ -8,6 +8,7 @@ import { ATSCompatibility } from './pages/ATSCompatibility.tsx'
 import { EmailCampaigns } from './pages/EmailCampaigns.tsx'
 import AIFeatures from './pages/AIFeatures.tsx'
 import { CandidateIntelligence } from './pages/CandidateIntelligence.tsx'
+import { CareerAIChatbot } from './pages/CareerAIChatbot.tsx'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -15,7 +16,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/candidate-intelligence" element={<CandidateIntelligence />} />
+        <Route path="/candidate-intelligence" element={<CareerAIChatbot />} />
+        <Route path="/career-ai" element={<CareerAIChatbot />} />
+        <Route path="/candidate-dashboard" element={<CandidateIntelligence />} />
         <Route path="/features/application-tracker" element={<RecruiterDashboard />} />
         <Route path="/features/resume-matching" element={<ResumeMatching />} />
         <Route path="/features/ats-compatibility" element={<ATSCompatibility />} />

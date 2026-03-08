@@ -394,6 +394,31 @@ class InputValidationAgent:
                     details={"file_path": file_path, "first_bytes_read": len(first_bytes)}
                 )
                 
+        except PermissionError as e:
+            logger.error(f"Permission error checking file integrity: {str(e)}")
+            return ValidationCheckpoint(
+                name="File Integrity Validation",
+                status=CheckpointStatus.FAILED,
+                message=f"Permission denied: File is locked or access restricted",
+                details={"error": str(e), "file_path": file_path}
+            )
+        except OSError as e:
+            # Handle Windows file locking errors (WinError 32)
+            if "being used by another process" in str(e):
+                logger.error(f"File is locked by another process: {str(e)}")
+                return ValidationCheckpoint(
+                    name="File Integrity Validation",
+                    status=CheckpointStatus.FAILED,
+                    message=f"File is locked by another process",
+                    details={"error": str(e), "file_path": file_path}
+                )
+            logger.error(f"OS error checking file integrity: {str(e)}")
+            return ValidationCheckpoint(
+                name="File Integrity Validation",
+                status=CheckpointStatus.FAILED,
+                message=f"OS error: {str(e)}",
+                details={"error": str(e)}
+            )
         except Exception as e:
             logger.error(f"Error checking file integrity: {str(e)}")
             return ValidationCheckpoint(

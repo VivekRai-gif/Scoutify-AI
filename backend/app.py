@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Flask API for AI-Powered Recruitment Platform
 
 Provides endpoints for ATS analysis, skill verification, bias detection,
@@ -34,7 +35,7 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend communication
 
 # Gemini API Key - Use environment variable in production
-GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', "AIzaSyA4YrOd8_4A8j1B6KBRaBy_I8XVAnvmI3Q")
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', "AIzaSyCSauceVVXIl436eoqYvv5TU2SFMMcyMFo")
 
 # Initialize all AI-powered services (Candidate-Focused Multi-Agent System)
 try:
@@ -81,39 +82,43 @@ def validate_file_upload(f):
         
         # Save file temporarily for validation
         try:
+            # Create temp file and save uploaded file
             with tempfile.NamedTemporaryFile(delete=False) as temp_file:
-                resume_file.save(temp_file.name)
-                file_size = temp_file.tell()
-                
-                # Validate file using validation agent
-                validation_result = validation_agent.validate_file(
-                    file_path=temp_file.name,
-                    file_size=file_size,
-                    filename=resume_file.filename
-                )
-                
-                # Clean up
-                import os
-                os.unlink(temp_file.name)
-                
-                # If validation failed, return error
-                if not validation_result.is_valid:
-                    logger.warning(f"File validation failed: {validation_result.errors}")
-                    return jsonify({
-                        'success': False,
-                        'error': 'File validation failed',
-                        'validation_result': validation_result.to_dict()
-                    }), 400
-                
-                # Log warnings if any
-                if validation_result.warnings:
-                    logger.warning(f"File validation warnings: {validation_result.warnings}")
-                
-                # Reset file pointer for endpoint to use
-                resume_file.seek(0)
-                
-                # Store validation result in request context for endpoint to access
-                request.validation_result = validation_result
+                temp_file_path = temp_file.name
+                resume_file.save(temp_file_path)
+                file_size = os.path.getsize(temp_file_path)
+            
+            # Validate file AFTER closing it (fixes Windows file locking issue)
+            validation_result = validation_agent.validate_file(
+                file_path=temp_file_path,
+                file_size=file_size,
+                filename=resume_file.filename
+            )
+            
+            # Clean up
+            try:
+                os.unlink(temp_file_path)
+            except Exception as cleanup_error:
+                logger.warning(f"Could not delete temp file: {cleanup_error}")
+            
+            # If validation failed, return error
+            if not validation_result.is_valid:
+                logger.warning(f"File validation failed: {validation_result.errors}")
+                return jsonify({
+                    'success': False,
+                    'error': 'File validation failed',
+                    'validation_result': validation_result.to_dict()
+                }), 400
+            
+            # Log warnings if any
+            if validation_result.warnings:
+                logger.warning(f"File validation warnings: {validation_result.warnings}")
+            
+            # Reset file pointer for endpoint to use
+            resume_file.seek(0)
+            
+            # Store validation result in request context for endpoint to access
+            request.validation_result = validation_result
                 
         except Exception as e:
             logger.error(f"Error during file validation: {str(e)}")
@@ -1064,6 +1069,61 @@ def candidate_career_intelligence():
     
     except Exception as e:
         return jsonify({'success': False, 'error': f'Server error: {str(e)}'}), 500
+
+
+# ==================== CAREER AI CHATBOT ====================
+
+@app.route('/api/career-ai/chat', methods=['POST'])
+def career_ai_chat():
+    """Career AI Chatbot endpoint using Gemini API"""
+    try:
+        data = request.get_json()
+        
+        if not data or 'message' not in data:
+            return jsonify({'success': False, 'error': 'Missing message'}), 400
+        
+        user_message = data['message']
+        conversation_history = data.get('history', [])
+        
+        # Build conversation context
+        system_prompt = """You are a Career AI Assistant powered by Matchly, an AI-driven recruitment and career development platform. Your role is to help job seekers with:
+
+1. Career guidance and planning
+2. Resume optimization suggestions
+3. Job search strategies
+4. Interview preparation tips
+5. Skill development recommendations
+6. Career transition advice
+7. Salary negotiation guidance
+8. Professional networking tips
+9. Industry insights and trends
+10. Work-life balance advice
+
+Be encouraging, professional, and actionable in your responses. Provide specific, practical advice tailored to the user's questions. Keep responses concise but comprehensive."""
+
+        # Use Gemini API to generate response
+        import google.generativeai as genai
+        genai.configure(api_key=GEMINI_API_KEY)
+        model = genai.GenerativeModel('gemini-pro')
+        
+        # Create full prompt with context
+        full_prompt = f"{system_prompt}\n\nUser: {user_message}\n\nAssistant:"
+        
+        response = model.generate_content(full_prompt)
+        
+        return jsonify({
+            'success': True,
+            'response': response.text,
+            'timestamp': datetime.utcnow().isoformat()
+        })
+    
+    except Exception as e:
+        logger.error(f"Error in career AI chat: {str(e)}")
+        return jsonify({
+            'success': False,
+            'error': 'Failed to generate response',
+            'details': str(e)
+        }), 500
 
 
 # ==================== END NEW ENDPOINTS ====================

@@ -216,12 +216,6 @@ To become the **essential intelligence layer** empowering the future of job seek
 
 ---
 
-## 📄 License
-
-MIT License - feel free to use and contribute!
-
----
-
 ## 🤝 Contributing
 
 We welcome contributions! Please feel free to submit issues and pull requests.
